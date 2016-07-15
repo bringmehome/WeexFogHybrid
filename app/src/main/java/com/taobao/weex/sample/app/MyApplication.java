@@ -3,7 +3,10 @@ package com.taobao.weex.sample.app;
 import android.app.Application;
 import android.os.Environment;
 
+import com.sin.ui.component.URLHelperModule;
 import com.taobao.weex.WXSDKEngine;
+import com.taobao.weex.common.WXException;
+import com.taobao.weex.utils.WXLogUtils;
 
 import java.io.File;
 
@@ -14,7 +17,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        WXSDKEngine.init(this,null,null,new MyImageAdapter(),null);//设置自定义的adadpter实现图片显示、http请求等能力
+        WXSDKEngine.init(this, null, null, new MyImageAdapter(), null);//设置自定义的adadpter实现图片显示、http请求等能力
 
         String filePath = "";
         String _FILE_ROOT_PATH = "";
@@ -34,7 +37,14 @@ public class MyApplication extends Application {
                 }
             }
         }
+
+        try {
+            WXSDKEngine.registerModule("myURL", URLHelperModule.class);//'myURL' is the name you'll use in javascript
+        } catch (WXException e) {
+            WXLogUtils.e(e.getMessage());
+        }
     }
+
     /**
      * 手机是否存在SD卡
      *
@@ -43,6 +53,7 @@ public class MyApplication extends Application {
     public static boolean externalMemoryAvailable() {
         return android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
     }
+
     public static boolean checkPara(String... param) {
         if (null == param || param.equals("")) {
             return false;

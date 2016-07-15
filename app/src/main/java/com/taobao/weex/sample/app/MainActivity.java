@@ -1,7 +1,6 @@
 package com.taobao.weex.sample.app;
 
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +28,13 @@ public class MainActivity extends AppCompatActivity implements IWXRenderListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        if (Build.VERSION.SDK_INT >=Build.VERSION_CODES.KITKAT) {
+//			WebView.setWebContentsDebuggingEnabled(true);
+//		}
+
+//        ActionBar actionBar = getActionBar();
+//        actionBar.hide();
+
         mContainer = (ViewGroup) findViewById(R.id.container);
         mInstance = new WXSDKInstance(this); //create weex instance
         mInstance.registerRenderListener(this); //SimpleRenderListener需要开发者来实现
@@ -42,17 +48,26 @@ public class MainActivity extends AppCompatActivity implements IWXRenderListener
 //                ScreenUtil.getDisplayHeight(this),
 //                WXRenderStrategy.APPEND_ASYNC);
 
-        File f = new File(Environment.getExternalStorageDirectory() + "/weexdownload/tech_list.js");
-//        String WEEX_INDEX_URL = "http://172.18.110.1:8081/weex_tmp/h5_render/tech_list.js";
-//        mInstance.renderByUrl(TAG, WEEX_INDEX_URL, new HashMap<String, Object>(), null, ScreenUtil.getDisplayWidth(this), ScreenUtil.getDisplayHeight(this), WXRenderStrategy.APPEND_ASYNC);
-
-        mInstance.render(TAG,
-                ReadTxtFile(f.toString()),
+        //加载网络地址的js
+        String WEEX_INDEX_URL = "http://172.22.23.1:8081/weex_tmp/h5_render/index.js";
+        mInstance.renderByUrl(
+                TAG,
+                WEEX_INDEX_URL,
                 new HashMap<String, Object>(),
                 null,
                 ScreenUtil.getDisplayWidth(this),
                 ScreenUtil.getDisplayHeight(this),
                 WXRenderStrategy.APPEND_ASYNC);
+
+        //加载本地的js
+//        File f = new File(Environment.getExternalStorageDirectory() + "/weexdownload/tech_list.js");
+//        mInstance.render(TAG,
+//                ReadTxtFile(f.toString()),
+//                new HashMap<String, Object>(),
+//                null,
+//                ScreenUtil.getDisplayWidth(this),
+//                ScreenUtil.getDisplayHeight(this),
+//                WXRenderStrategy.APPEND_ASYNC);
     }
 
     //读取文本文件中的内容
