@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/WeexSampleApp.iml" filepath="$PROJECT_DIR$/WeexSampleApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WeexFogHybrid.iml" filepath="$PROJECT_DIR$/WeexFogHybrid.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
