@@ -3,9 +3,9 @@ package com.taobao.weex.sample.app;
 import android.app.Application;
 import android.os.Environment;
 
-import com.sin.ui.component.MyViewComponent;
 import com.sin.ui.component.RichText;
 import com.sin.ui.component.URLHelperModule;
+import com.taobao.weex.InitConfig;
 import com.taobao.weex.WXSDKEngine;
 import com.taobao.weex.common.WXException;
 import com.taobao.weex.utils.WXLogUtils;
@@ -19,8 +19,14 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        WXSDKEngine.init(this, null, null, new MyImageAdapter(), null);//设置自定义的adadpter实现图片显示、http请求等能力
-
+//        WXSDKEngine.init(this, null, null, new MyImageAdapter(), null);//设置自定义的adadpter实现图片显示、http请求等能力
+        WXSDKEngine.addCustomOptions("appName", "Sin");
+        WXSDKEngine.initialize(this,
+                new InitConfig.Builder()
+                        .setImgAdapter(new MyImageAdapter())
+                        .setDebugAdapter(null)
+                        .build()
+        );
         String filePath = "";
         String _FILE_ROOT_PATH = "";
         if (externalMemoryAvailable()) {
@@ -39,7 +45,6 @@ public class MyApplication extends Application {
                 }
             }
         }
-
         try {
             WXSDKEngine.registerComponent("richtext", RichText.class);
             WXSDKEngine.registerModule("myURL", URLHelperModule.class);//'myURL' is the name you'll use in javascript

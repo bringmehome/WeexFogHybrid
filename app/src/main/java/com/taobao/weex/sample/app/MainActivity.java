@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements IWXRenderListener
 //                WXRenderStrategy.APPEND_ASYNC);
 
         //加载网络地址的js
-        String WEEX_INDEX_URL = "http://172.21.5.1:8081/weex_tmp/h5_render/index.js";
+        String WEEX_INDEX_URL = "http://172.19.69.1:8081/weex_tmp/h5_render/index.js";
         mInstance.renderByUrl(
                 TAG,
                 WEEX_INDEX_URL,
