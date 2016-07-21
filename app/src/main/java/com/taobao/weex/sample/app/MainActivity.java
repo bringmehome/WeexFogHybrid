@@ -1,6 +1,7 @@
 package com.taobao.weex.sample.app;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -49,25 +50,25 @@ public class MainActivity extends AppCompatActivity implements IWXRenderListener
 //                WXRenderStrategy.APPEND_ASYNC);
 
         //加载网络地址的js
-        String WEEX_INDEX_URL = "http://172.19.69.1:8081/weex_tmp/h5_render/index.js";
-        mInstance.renderByUrl(
-                TAG,
-                WEEX_INDEX_URL,
-                new HashMap<String, Object>(),
-                null,
-                ScreenUtil.getDisplayWidth(this),
-                ScreenUtil.getDisplayHeight(this),
-                WXRenderStrategy.APPEND_ASYNC);
-
-        //加载本地的js
-//        File f = new File(Environment.getExternalStorageDirectory() + "/weexdownload/tech_list.js");
-//        mInstance.render(TAG,
-//                ReadTxtFile(f.toString()),
+//        String WEEX_INDEX_URL = "http://172.27.35.1:8000/index.js";
+//        mInstance.renderByUrl(
+//                TAG,
+//                WEEX_INDEX_URL,
 //                new HashMap<String, Object>(),
 //                null,
 //                ScreenUtil.getDisplayWidth(this),
 //                ScreenUtil.getDisplayHeight(this),
 //                WXRenderStrategy.APPEND_ASYNC);
+
+        //加载本地的js
+        File f = new File(Environment.getExternalStorageDirectory() + "/weexsin/index.js");
+        mInstance.render(TAG,
+                ReadTxtFile(f.toString()),
+                new HashMap<String, Object>(),
+                null,
+                ScreenUtil.getDisplayWidth(this),
+                ScreenUtil.getDisplayHeight(this),
+                WXRenderStrategy.APPEND_ASYNC);
     }
 
     //读取文本文件中的内容

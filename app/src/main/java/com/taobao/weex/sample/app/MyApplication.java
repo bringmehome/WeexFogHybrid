@@ -30,10 +30,10 @@ public class MyApplication extends Application {
         String filePath = "";
         String _FILE_ROOT_PATH = "";
         if (externalMemoryAvailable()) {
-            filePath = Environment.getExternalStorageDirectory() + "/weexdownload/";
+            filePath = Environment.getExternalStorageDirectory() + "/weexsin/";
             _FILE_ROOT_PATH = Environment.getExternalStorageDirectory() + "";
         } else {
-            filePath = Environment.getDataDirectory() + "/weexdownload/";
+            filePath = Environment.getDataDirectory() + "/weexsin/";
             _FILE_ROOT_PATH = Environment.getDataDirectory() + "";
         }
 
