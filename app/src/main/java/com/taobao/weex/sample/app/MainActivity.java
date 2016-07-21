@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.com.fogcloud.download.UpdateWeexJs;
 import com.taobao.weex.IWXRenderListener;
 import com.taobao.weex.WXSDKInstance;
 import com.taobao.weex.common.WXRenderStrategy;
@@ -50,7 +51,8 @@ public class MainActivity extends AppCompatActivity implements IWXRenderListener
 //                WXRenderStrategy.APPEND_ASYNC);
 
         //加载网络地址的js
-//        String WEEX_INDEX_URL = "http://172.27.35.1:8000/index.js";
+//        String WEEX_INDEX_URL = "http://www.buyhezi.com/weex/index.js";
+////        String WEEX_INDEX_URL = "http://172.27.35.1:8000/index.js";
 //        mInstance.renderByUrl(
 //                TAG,
 //                WEEX_INDEX_URL,
@@ -69,6 +71,9 @@ public class MainActivity extends AppCompatActivity implements IWXRenderListener
                 ScreenUtil.getDisplayWidth(this),
                 ScreenUtil.getDisplayHeight(this),
                 WXRenderStrategy.APPEND_ASYNC);
+
+        UpdateWeexJs uweexjs = new UpdateWeexJs();
+        uweexjs.doDownload();
     }
 
     //读取文本文件中的内容
