@@ -26,6 +26,7 @@ by Sin 2016-07-21
 
 5、加载完成后通过ReadTxtFile读取文件内容，并mInstance.render出去就展示出来了
 
+
 ###加载在线文件时候
 
 1、weex当然更能支持在线加载文件的功能，代码如下
@@ -41,7 +42,7 @@ mInstance.renderByUrl(
         WXRenderStrategy.APPEND_ASYNC);
  ```
 
- ###这里介绍封装自定义模块,我们采用倒叙
+###这里介绍封装自定义模块,我们采用倒叙
 
  1、MyApplication.java中可以看到注册模块的部分
  ```java
