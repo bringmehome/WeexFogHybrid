@@ -40,3 +40,36 @@ mInstance.renderByUrl(
         ScreenUtil.getDisplayHeight(this),
         WXRenderStrategy.APPEND_ASYNC);
  ```
+
+ ###这里介绍封装自定义模块,我们采用倒叙
+
+ 1、MyApplication.java中可以看到注册模块的部分
+ ```java
+ try {
+     WXSDKEngine.registerModule("myURL", URLHelperModule.class);
+ } catch (WXException e) {
+     WXLogUtils.e(e.getMessage());
+ }
+```
+
+2、URLHelperModule模块extends WXModule,然后完成方法openURL
+```java
+public void openURL(String url, String callbackId) {
+    //...
+    //callback to javascript
+    Map<String, Object> result = new HashMap<String, Object>();
+    result.put("ts", url);
+    result.put("sin", "i m sin.");
+    WXBridgeManager.getInstance().callback(mWXSDKInstance.getInstanceId(), callbackId, result);
+}
+```
+
+3、js调用时候先require下
+```js
+var URLHelper = require('@weex-module/myURL');//same as you registered
+URLHelper.openURL("http://www.taobao.com",function(ts){
+    console.log("url is open at ----- >>>>>  "+ts);
+});
+```
+
+4、so easy, 具体见[Extend to Android](http://alibaba.github.io/weex/doc/advanced/extend-to-android.html)
