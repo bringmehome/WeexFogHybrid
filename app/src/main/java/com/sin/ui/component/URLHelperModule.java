@@ -45,7 +45,7 @@ public class URLHelperModule extends WXModule {
         //callback to javascript
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("ts", url);
-        result.put("sin", "i m sin.");
+        result.put("sin", "I m SIN.");
         WXBridgeManager.getInstance().callback(mWXSDKInstance.getInstanceId(), callbackId, result);
     }
 }

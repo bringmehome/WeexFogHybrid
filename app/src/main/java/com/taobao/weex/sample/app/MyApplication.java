@@ -3,6 +3,7 @@ package com.taobao.weex.sample.app;
 import android.app.Application;
 import android.os.Environment;
 
+import com.io.fogcloud.weex.fog2.Fog;
 import com.sin.ui.component.RichText;
 import com.sin.ui.component.URLHelperModule;
 import com.taobao.weex.InitConfig;
@@ -48,6 +49,7 @@ public class MyApplication extends Application {
         try {
             WXSDKEngine.registerComponent("richtext", RichText.class);
             WXSDKEngine.registerModule("myURL", URLHelperModule.class);//'myURL' is the name you'll use in javascript
+            WXSDKEngine.registerModule("fog", Fog.class);//'myURL' is the name you'll use in javascript
         } catch (WXException e) {
             WXLogUtils.e(e.getMessage());
         }
