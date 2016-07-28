@@ -3,7 +3,6 @@ package com.taobao.weex.sample.app;
 import android.app.Application;
 import android.os.Environment;
 
-import com.io.fogcloud.weex.fog2.Fog;
 import com.sin.ui.component.RichText;
 import com.sin.ui.component.URLHelperModule;
 import com.taobao.weex.InitConfig;
@@ -12,6 +11,8 @@ import com.taobao.weex.common.WXException;
 import com.taobao.weex.utils.WXLogUtils;
 
 import java.io.File;
+
+import io.fogcloud.fog2.Fog;
 
 /**
  * Created by sospartan on 6/7/16.
