@@ -17,6 +17,8 @@ import java.util.Map;
 import io.fogcloud.easylink.api.EasyLink;
 import io.fogcloud.easylink.helper.EasyLinkCallBack;
 import io.fogcloud.easylink.helper.EasyLinkParams;
+import io.fogcloud.fog2.utils.EasyLinkUtils;
+import io.fogcloud.helper.CheckTool;
 import io.fogcloud.helper.PaMap;
 
 /**
@@ -25,98 +27,48 @@ import io.fogcloud.helper.PaMap;
  */
 public class Fog extends WXModule {
     private Context mContext = null;
-    private EasyLink el = null;
-    private String callbackid = null;
+    private String instanceId = null;
+    private EasyLinkUtils elu = null;
+
+    private void initFog(){
+        if(null == mContext){
+            mContext = mWXSDKInstance.getContext();
+        }
+        if(null == instanceId) {
+            instanceId = mWXSDKInstance.getInstanceId();
+        }
+    }
 
     /**
      * Let device connect to wifi router by EasyLink
-     * @param easylinkpara
-     * @param callbackId
+     *
+     * @param parameters  parameters from js
+     * @param callbackId the id of js, and it will send callback message to this id
      */
     @WXModuleAnno
-    public void startEasyLink(String easylinkpara,String callbackId) {
+    public void startEasyLink(String parameters, String callbackId) {
 
-        mContext = mWXSDKInstance.getContext();
-        el = new EasyLink(mWXSDKInstance.getContext());
-        callbackid = callbackId;
-        EasyLinkParams elpa = jsonToParams(easylinkpara);
+        if (!CheckTool.checkPara(callbackId))
+            return;
 
-        if (null != el && null != elpa) {
-            el.startEasyLink(elpa, new EasyLinkCallBack() {
-                @Override
-                public void onSuccess(int code, String message) {
-                    Log.d("fog ----- ", "code = " + code + " messgae" + message);
+        initFog();
 
-                    Map<String, Object> result = new HashMap<String, Object>();
-                    result.put("code", code);
-                    result.put("message", message);
-
-                    if (1001 == code) {
-                        exeCallBack(result, false);
-                    } else {
-                        exeCallBack(result, true);
-                    }
-                }
-
-                @Override
-                public void onFailure(int code, String message) {
-                    Log.d("fog ----- ", "code = " + code + " messgae" + message);
-                    Map<String, Object> result = new HashMap<String, Object>();
-                    result.put("code", code);
-                    result.put("message", message);
-                    exeCallBack(result, false);
-                }
-            });
+        if(CheckTool.checkPara(parameters)){
+            if(null == elu)
+                elu = new EasyLinkUtils(mContext, instanceId);
+            elu.startEasyLink(parameters, callbackId);
+        }else{
+            exeCallBack(callbackId, PaMap.getEmptyMessage(), false);
         }
     }
 
     /**
      * Call back to js.
-     * @param result
-     * @param keepAlive
+     * @param callbackId callback referenece handle
+     * @param message callback data
+     * @param keepAlive  if keep callback instance alive for later use
      */
-    private void exeCallBack(Map<String, Object> result, boolean keepAlive) {
-        WXBridgeManager.getInstance().callback(mWXSDKInstance.getInstanceId(), callbackid, result, keepAlive);
-    }
-
-    /**
-     * Creates a new EasyLinkParams with name/value mappings from the JSON string.
-     * @param json JSON string
-     * @return EasyLinkParams
-     */
-    private EasyLinkParams jsonToParams(String json){
-        try {
-            JSONObject jjson = new JSONObject(json);
-            Iterator it = jjson.keys();
-            EasyLinkParams easylinkPara = new EasyLinkParams();
-            String key;
-            while (it.hasNext()){
-                key = it.next().toString();
-                switch (key){
-                    case PaMap._EL_SSID:
-                        easylinkPara.ssid = jjson.getString(key);
-                        break;
-                    case PaMap._EL_PSW:
-                        easylinkPara.password = jjson.getString(key);
-                        break;
-                    case PaMap._EL_WORK:
-                        easylinkPara.runSecond = jjson.getInt(key);
-                        break;
-                    case PaMap._EL_SLEEP:
-                        easylinkPara.sleeptime = jjson.getInt(key);
-                        break;
-                    case PaMap._EL_EXTRA:
-                        easylinkPara.extraData = jjson.getString(key);
-                        break;
-                    case PaMap._EL_RC4:
-                        easylinkPara.rc4key = jjson.getString(key);
-                        break;
-                }
-            }
-            return easylinkPara;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
+    private void exeCallBack(String callbackId, Map<String, Object> message, boolean keepAlive) {
+        WXBridgeManager.getInstance().callback(instanceId, callbackId, message, keepAlive);
     }
 }
