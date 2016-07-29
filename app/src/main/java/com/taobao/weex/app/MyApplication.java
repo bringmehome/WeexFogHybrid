@@ -1,10 +1,8 @@
-package com.taobao.weex.sample.app;
+package com.taobao.weex.app;
 
 import android.app.Application;
 import android.os.Environment;
 
-import com.sin.ui.component.RichText;
-import com.sin.ui.component.URLHelperModule;
 import com.taobao.weex.InitConfig;
 import com.taobao.weex.WXSDKEngine;
 import com.taobao.weex.common.WXException;
@@ -12,6 +10,7 @@ import com.taobao.weex.utils.WXLogUtils;
 
 import java.io.File;
 
+import cn.baihezi.test.URLHelperModule;
 import io.fogcloud.fog2.Fog;
 
 /**
@@ -48,7 +47,7 @@ public class MyApplication extends Application {
             }
         }
         try {
-            WXSDKEngine.registerComponent("richtext", RichText.class);
+//            WXSDKEngine.registerComponent("richtext", RichText.class);
             WXSDKEngine.registerModule("myURL", URLHelperModule.class);//'myURL' is the name you'll use in javascript
             WXSDKEngine.registerModule("fog", Fog.class);//'myURL' is the name you'll use in javascript
         } catch (WXException e) {

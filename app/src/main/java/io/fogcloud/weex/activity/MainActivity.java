@@ -1,4 +1,4 @@
-package com.taobao.weex.sample.app;
+package io.fogcloud.weex.activity;
 
 import android.os.Bundle;
 import android.os.Environment;
@@ -7,10 +7,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.com.fogcloud.download.UpdateWeexJs;
 import com.taobao.weex.IWXRenderListener;
 import com.taobao.weex.WXSDKInstance;
 import com.taobao.weex.common.WXRenderStrategy;
+import com.taobao.weex.sample.app.R;
+import com.taobao.weex.app.ScreenUtil;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -19,6 +20,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+
+import io.fogcloud.helper.download.UpdateWeexJs;
 
 public class MainActivity extends AppCompatActivity implements IWXRenderListener {
     public static final String TAG = "MainActivity";
@@ -33,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements IWXRenderListener
 //        if (Build.VERSION.SDK_INT >=Build.VERSION_CODES.KITKAT) {
 //			WebView.setWebContentsDebuggingEnabled(true);
 //		}
-
 //        ActionBar actionBar = getActionBar();
 //        actionBar.hide();
 
@@ -71,8 +73,8 @@ public class MainActivity extends AppCompatActivity implements IWXRenderListener
 //                ScreenUtil.getDisplayWidth(this),
 //                ScreenUtil.getDisplayHeight(this),
 //                WXRenderStrategy.APPEND_ASYNC);
-
-//        下载文件
+//
+////        下载文件
 //        UpdateWeexJs uweexjs = new UpdateWeexJs();
 //        uweexjs.doDownload();
     }

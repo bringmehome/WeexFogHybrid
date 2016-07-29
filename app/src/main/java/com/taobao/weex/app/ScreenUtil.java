@@ -202,17 +202,15 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package com.taobao.weex.sample.app;
+package com.taobao.weex.app;
 
 import android.content.res.TypedArray;
 import android.graphics.Point;
-import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 
 public class ScreenUtil {
     private static final String TAG = "ScreenUtil";

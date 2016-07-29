@@ -1,4 +1,4 @@
-package com.com.fogcloud.download;
+package io.fogcloud.helper.download;
 
 import java.io.BufferedInputStream;
 import java.io.File;

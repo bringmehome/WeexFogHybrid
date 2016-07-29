@@ -1,4 +1,4 @@
-package com.com.fogcloud.download;
+package io.fogcloud.helper.download;
 
 import android.os.Environment;
 import android.os.Handler;

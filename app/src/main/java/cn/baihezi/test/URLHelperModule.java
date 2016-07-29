@@ -1,4 +1,4 @@
-package com.sin.ui.component;
+package cn.baihezi.test;
 
 import android.content.Intent;
 import android.net.Uri;
