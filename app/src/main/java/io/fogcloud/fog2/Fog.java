@@ -30,6 +30,9 @@ public class Fog extends WXModule {
     private String instanceId = null;
     private EasyLinkUtils elu = null;
 
+    /**
+     * Initialize wxmodule of fog
+     */
     private void initFog(){
         if(null == mContext){
             mContext = mWXSDKInstance.getContext();
@@ -63,7 +66,26 @@ public class Fog extends WXModule {
     }
 
     /**
+     * Stop send data to device.
+     *
+     * @param callbackId callback referenece handle
+     */
+    @WXModuleAnno
+    public void stopEasyLink(String callbackId) {
+
+        if (!CheckTool.checkPara(callbackId))
+            return;
+
+        initFog();
+
+        if(null == elu)
+            elu = new EasyLinkUtils(mContext, instanceId);
+        elu.stopEasyLink(callbackId);
+    }
+
+    /**
      * Call back to js.
+     *
      * @param callbackId callback referenece handle
      * @param message callback data
      * @param keepAlive  if keep callback instance alive for later use
