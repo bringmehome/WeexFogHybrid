@@ -27,8 +27,8 @@ public class EasyLinkUtils {
     /**
      * Initialize EasyLink.
      *
-     * @param context
-     * @param instanceId
+     * @param context Interface to global information about an application environment.
+     * @param instanceId id of instance
      */
     public EasyLinkUtils(Context context, String instanceId) {
         this.el = new EasyLink(context);

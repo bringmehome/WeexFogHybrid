@@ -18,6 +18,7 @@ import io.fogcloud.easylink.api.EasyLink;
 import io.fogcloud.easylink.helper.EasyLinkCallBack;
 import io.fogcloud.easylink.helper.EasyLinkParams;
 import io.fogcloud.fog2.utils.EasyLinkUtils;
+import io.fogcloud.fog2.utils.MDNSUtils;
 import io.fogcloud.helper.CheckTool;
 import io.fogcloud.helper.PaMap;
 
@@ -28,7 +29,9 @@ import io.fogcloud.helper.PaMap;
 public class Fog extends WXModule {
     private Context mContext = null;
     private String instanceId = null;
+
     private EasyLinkUtils elu = null;
+    private MDNSUtils mdnsu = null;
 
     /**
      * Initialize wxmodule of fog
@@ -81,6 +84,30 @@ public class Fog extends WXModule {
         if(null == elu)
             elu = new EasyLinkUtils(mContext, instanceId);
         elu.stopEasyLink(callbackId);
+    }
+
+    @WXModuleAnno
+    public void startSearchDevices(String servicename, String callbackId){
+        if (!CheckTool.checkPara(callbackId))
+            return;
+
+        initFog();
+
+        if(null == mdnsu)
+            mdnsu = new MDNSUtils(mContext, instanceId);
+        mdnsu.startSearchDevices(servicename, callbackId);
+    }
+
+    @WXModuleAnno
+    public void stopSearchDevices(String callbackId){
+        if (!CheckTool.checkPara(callbackId))
+            return;
+
+        initFog();
+
+        if(null == mdnsu)
+            mdnsu = new MDNSUtils(mContext, instanceId);
+        mdnsu.stopSearchDevices(callbackId);
     }
 
     /**
