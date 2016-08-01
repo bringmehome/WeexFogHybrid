@@ -54,6 +54,6 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.taobao.android:weex_sdk:0.6.1' //添加SDK library依赖
 
-    compile 'io.fogcloud.sdk:easylink:0.1.0'
-    compile 'io.fogcloud.sdk:fog_mdns:0.1.0'
+    compile 'io.fogcloud.sdk:easylink:0.1.1'
+    compile 'io.fogcloud.sdk:fog_mdns:0.1.1'
 }

@@ -46,10 +46,27 @@ public class Fog extends WXModule {
     }
 
     /**
+     * Get SSID, name of current wifi in android.
+     *
+     * @param callbackId callback referenece handle
+     */
+    @WXModuleAnno
+    public void getSsid(String callbackId) {
+        if (!CheckTool.checkPara(callbackId))
+            return;
+
+        initFog();
+
+        if(null == elu)
+            elu = new EasyLinkUtils(mContext, instanceId);
+        elu.getSsid(callbackId);
+    }
+
+    /**
      * Let device connect to wifi router by EasyLink
      *
      * @param parameters  parameters from js
-     * @param callbackId the id of js, and it will send callback message to this id
+     * @param callbackId callback referenece handle
      */
     @WXModuleAnno
     public void startEasyLink(String parameters, String callbackId) {

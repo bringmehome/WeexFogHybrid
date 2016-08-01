@@ -40,8 +40,8 @@ public class MDNSUtils {
 
             mdns.startSearchDevices(servicename, new SearchDeviceCallBack() {
                 @Override
-                public void onSuccess(String message) {
-                    exeCallBack(callbackId, getResult(message), true);
+                public void onSuccess(int code, String message) {
+                    exeCallBack(callbackId, getResult(message, code), true);
                 }
 
                 @Override
@@ -62,8 +62,8 @@ public class MDNSUtils {
         if (null != mdns){
             mdns.stopSearchDevices(new SearchDeviceCallBack() {
                 @Override
-                public void onSuccess(String message) {
-                    exeCallBack(callbackId, getResult(message), false);
+                public void onSuccess(int code, String message) {
+                    exeCallBack(callbackId, getResult(message, code), false);
                 }
 
                 @Override
@@ -84,7 +84,7 @@ public class MDNSUtils {
     private Map<String, Object> getResult(String message, int ...code) {
         Map<String, Object> result = new HashMap<String, Object>();
         if(code.length > 0)
-            result.put("code", code);
+            result.put("code", code[0]);
         result.put("message", message);
         return result;
     }

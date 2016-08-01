@@ -36,6 +36,15 @@ public class EasyLinkUtils {
     }
 
     /**
+     * Get SSID, current name of wifi in android.
+     *
+     * @param callbackId callback referenece handle
+     */
+    public void getSsid(final String callbackId){
+        exeCallBack(callbackId, getResult(0, el.getSSID()), false);
+    }
+
+    /**
      * Start EasyLink, it means we will send ssid and password to the device.
      *
      * @param easylinkpara easylink data
@@ -48,7 +57,7 @@ public class EasyLinkUtils {
             el.startEasyLink(elpa, new EasyLinkCallBack() {
                 @Override
                 public void onSuccess(int code, String message) {
-                    if (1001 == code) {
+                    if (4000 == code) {
                         exeCallBack(callbackId, getResult(code, message), false);
                     } else {
                         exeCallBack(callbackId, getResult(code, message), true);
