@@ -1,7 +1,6 @@
 package io.fogcloud.fog2.utils;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.taobao.weex.bridge.WXBridgeManager;
 
@@ -13,6 +12,7 @@ import java.util.Map;
 import io.fogcloud.fog_mdns.api.MDNS;
 import io.fogcloud.fog_mdns.helper.SearchDeviceCallBack;
 import io.fogcloud.helper.CheckTool;
+import io.fogcloud.helper.PaMap;
 
 /**
  * Created by Sin on 2016/07/29.
@@ -33,6 +33,12 @@ public class MDNSUtils {
         this.instanceId = instanceId;
     }
 
+    /**
+     * Find devices by multicast DNS.
+     *
+     * @param servicename Service name of multicast DNS.
+     * @param callbackId callback referenece handle
+     */
     public void startSearchDevices(String servicename, final String callbackId){
         if (null != mdns) {
             if(!CheckTool.checkPara(servicename))
@@ -51,13 +57,17 @@ public class MDNSUtils {
 
                 @Override
                 public void onDevicesFind(JSONArray deviceStatus) {
-                    Log.d("---fog---", deviceStatus.toString());
-                    WXBridgeManager.getInstance().callback(instanceId, callbackId, deviceStatus, true);
+                    WXBridgeManager.getInstance().callback(instanceId, callbackId, getResult(deviceStatus.toString(), PaMap._MDNS_ON_DEV_FIND), true);
                 }
             });
         }
     }
 
+    /**
+     * Stop multicast DNS.
+     *
+     * @param callbackId callback referenece handle
+     */
     public void stopSearchDevices(final String callbackId){
         if (null != mdns){
             mdns.stopSearchDevices(new SearchDeviceCallBack() {

@@ -57,7 +57,7 @@ public class EasyLinkUtils {
             el.startEasyLink(elpa, new EasyLinkCallBack() {
                 @Override
                 public void onSuccess(int code, String message) {
-                    if (4000 == code) {
+                    if (PaMap._EL_STOP == code) {
                         exeCallBack(callbackId, getResult(code, message), false);
                     } else {
                         exeCallBack(callbackId, getResult(code, message), true);

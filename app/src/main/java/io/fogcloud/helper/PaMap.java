@@ -17,9 +17,14 @@ public class PaMap {
     public final static String _EL_EXTRA  = "extradata";
     public final static String _EL_RC4  = "rc4key";
 
+    public final static int _EL_STOP  = 4000;
+
+    //The following are mDNSParams
+    public final static int _MDNS_ON_DEV_FIND  = 200;
+
     //Parameter is null
-    public final static int _EMPTY_CODE  = 9001;
-    public final static String _EMPTY_MSG  = "Parameter error.";
+    public final static int _EMPTY_CODE  = 4001;
+    public final static String _EMPTY_MSG  = "invalid param";
 
     /**
      * there is something wrong with parameters

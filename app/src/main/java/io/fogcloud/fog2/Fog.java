@@ -1,22 +1,13 @@
 package io.fogcloud.fog2;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.taobao.weex.bridge.WXBridgeManager;
 import com.taobao.weex.common.WXModule;
 import com.taobao.weex.common.WXModuleAnno;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
-import io.fogcloud.easylink.api.EasyLink;
-import io.fogcloud.easylink.helper.EasyLinkCallBack;
-import io.fogcloud.easylink.helper.EasyLinkParams;
 import io.fogcloud.fog2.utils.EasyLinkUtils;
 import io.fogcloud.fog2.utils.MDNSUtils;
 import io.fogcloud.helper.CheckTool;
@@ -103,6 +94,12 @@ public class Fog extends WXModule {
         elu.stopEasyLink(callbackId);
     }
 
+    /**
+     * Find devices by multicast DNS.
+     *
+     * @param servicename Service name of multicast DNS.
+     * @param callbackId callback referenece handle
+     */
     @WXModuleAnno
     public void startSearchDevices(String servicename, String callbackId){
         if (!CheckTool.checkPara(callbackId))
@@ -115,6 +112,11 @@ public class Fog extends WXModule {
         mdnsu.startSearchDevices(servicename, callbackId);
     }
 
+    /**
+     * Stop multicast DNS.
+     *
+     * @param callbackId callback referenece handle
+     */
     @WXModuleAnno
     public void stopSearchDevices(String callbackId){
         if (!CheckTool.checkPara(callbackId))
