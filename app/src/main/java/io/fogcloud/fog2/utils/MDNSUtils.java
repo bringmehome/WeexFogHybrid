@@ -95,6 +95,7 @@ public class MDNSUtils {
         Map<String, Object> result = new HashMap<String, Object>();
         if(code.length > 0)
             result.put("code", code[0]);
+
         result.put("message", message);
         return result;
     }

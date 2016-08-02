@@ -1,10 +1,14 @@
 package io.fogcloud.fog2;
 
 import android.content.Context;
+import android.util.Log;
 
+import com.alibaba.fastjson.JSONObject;
 import com.taobao.weex.bridge.WXBridgeManager;
 import com.taobao.weex.common.WXModule;
 import com.taobao.weex.common.WXModuleAnno;
+
+import org.json.JSONException;
 
 import java.util.Map;
 
@@ -36,6 +40,13 @@ public class Fog extends WXModule {
         }
     }
 
+    @WXModuleAnno
+    public void fogTest(JSONObject param, String callbackId){
+        Log.d("---fogTest---", param.toString());
+
+
+    }
+
     /**
      * Get SSID, name of current wifi in android.
      *
@@ -60,14 +71,14 @@ public class Fog extends WXModule {
      * @param callbackId callback referenece handle
      */
     @WXModuleAnno
-    public void startEasyLink(String parameters, String callbackId) {
+    public void startEasyLink(JSONObject parameters, String callbackId) {
 
         if (!CheckTool.checkPara(callbackId))
             return;
 
         initFog();
 
-        if(CheckTool.checkPara(parameters)){
+        if(!parameters.isEmpty()){
             if(null == elu)
                 elu = new EasyLinkUtils(mContext, instanceId);
             elu.startEasyLink(parameters, callbackId);

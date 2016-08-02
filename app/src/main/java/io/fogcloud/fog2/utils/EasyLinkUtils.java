@@ -2,13 +2,10 @@ package io.fogcloud.fog2.utils;
 
 import android.content.Context;
 
+import com.alibaba.fastjson.JSONObject;
 import com.taobao.weex.bridge.WXBridgeManager;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import io.fogcloud.easylink.api.EasyLink;
@@ -41,7 +38,7 @@ public class EasyLinkUtils {
      * @param callbackId callback referenece handle
      */
     public void getSsid(final String callbackId){
-        exeCallBack(callbackId, getResult(0, el.getSSID()), false);
+        exeCallBack(callbackId, getResult(PaMap._EL_SUCCESS, el.getSSID()), false);
     }
 
     /**
@@ -50,7 +47,7 @@ public class EasyLinkUtils {
      * @param easylinkpara easylink data
      * @param callbackId   callback referenece handle
      */
-    public void startEasyLink(String easylinkpara, final String callbackId) {
+    public void startEasyLink(JSONObject easylinkpara, final String callbackId) {
         EasyLinkParams elpa = jsonToParams(easylinkpara);
 
         if (null != el && null != elpa) {
@@ -99,41 +96,63 @@ public class EasyLinkUtils {
      * @param json JSON string
      * @return EasyLinkParams
      */
-    private EasyLinkParams jsonToParams(String json) {
-        try {
-            JSONObject jjson = new JSONObject(json);
-            Iterator it = jjson.keys();
-            EasyLinkParams easylinkPara = new EasyLinkParams();
-            String key;
-            while (it.hasNext()) {
-                key = it.next().toString();
-                switch (key) {
-                    case PaMap._EL_SSID:
-                        easylinkPara.ssid = jjson.getString(key);
-                        break;
-                    case PaMap._EL_PSW:
-                        easylinkPara.password = jjson.getString(key);
-                        break;
-                    case PaMap._EL_WORK:
-                        easylinkPara.runSecond = jjson.getInt(key);
-                        break;
-                    case PaMap._EL_SLEEP:
-                        easylinkPara.sleeptime = jjson.getInt(key);
-                        break;
-                    case PaMap._EL_EXTRA:
-                        easylinkPara.extraData = jjson.getString(key);
-                        break;
-                    case PaMap._EL_RC4:
-                        easylinkPara.rc4key = jjson.getString(key);
-                        break;
-                }
-            }
+    private EasyLinkParams jsonToParams(JSONObject json) {
+        EasyLinkParams easylinkPara = new EasyLinkParams();
+
+        if (json.containsKey(PaMap._EL_SSID))
+            easylinkPara.ssid = json.getString(PaMap._EL_SSID);
+        if (json.containsKey(PaMap._EL_PSW))
+            easylinkPara.password = json.getString(PaMap._EL_PSW);
+        if (json.containsKey(PaMap._EL_WORK))
+            easylinkPara.runSecond = json.getInteger(PaMap._EL_WORK);
+        if (json.containsKey(PaMap._EL_SLEEP))
+            easylinkPara.sleeptime = json.getInteger(PaMap._EL_SLEEP);
+        if (json.containsKey(PaMap._EL_EXTRA))
+            easylinkPara.extraData = json.getString(PaMap._EL_EXTRA);
+        if (json.containsKey(PaMap._EL_RC4))
+            easylinkPara.rc4key = json.getString(PaMap._EL_RC4);
+
             return easylinkPara;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
     }
+
+    /**
+     * It is old function, it use JSONObject of Android.
+     */
+//    private EasyLinkParams jsonToParams(String json) {
+//        try {
+//            JSONObject jjson = new JSONObject(json);
+//            Iterator it = jjson.keys();
+//            EasyLinkParams easylinkPara = new EasyLinkParams();
+//            String key;
+//            while (it.hasNext()) {
+//                key = it.next().toString();
+//                switch (key) {
+//                    case PaMap._EL_SSID:
+//                        easylinkPara.ssid = jjson.getString(key);
+//                        break;
+//                    case PaMap._EL_PSW:
+//                        easylinkPara.password = jjson.getString(key);
+//                        break;
+//                    case PaMap._EL_WORK:
+//                        easylinkPara.runSecond = jjson.getInt(key);
+//                        break;
+//                    case PaMap._EL_SLEEP:
+//                        easylinkPara.sleeptime = jjson.getInt(key);
+//                        break;
+//                    case PaMap._EL_EXTRA:
+//                        easylinkPara.extraData = jjson.getString(key);
+//                        break;
+//                    case PaMap._EL_RC4:
+//                        easylinkPara.rc4key = jjson.getString(key);
+//                        break;
+//                }
+//            }
+//            return easylinkPara;
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 
     /**
      * Return the Map from code and message.
