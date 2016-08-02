@@ -140,6 +140,12 @@ public class Fog extends WXModule {
         mdnsu.stopSearchDevices(callbackId);
     }
 
+    /**
+     * Start MQTT, it means we will send ssid and password to the device.
+     *
+     * @param parajson mqtt data
+     * @param callbackId   callback referenece handle
+     */
     @WXModuleAnno
     public void startMqtt(JSONObject parajson, String callbackId){
 
@@ -149,10 +155,119 @@ public class Fog extends WXModule {
         initFog();
 
         if(!parajson.isEmpty()){
-            if(null == elu)
+            if(null == mqttu)
                 mqttu = new MQTTUtils(mContext, instanceId);
             mqttu.startMqtt(parajson, callbackId);
         }else{
+            exeCallBack(callbackId, PaMap.getEmptyMessage(), false);
+        }
+    }
+
+    /**
+     * Stop listen mqttservice.
+     *
+     * @param callbackId callback referenece handle
+     */
+    @WXModuleAnno
+    public void stopMqtt(String callbackId){
+        if (!CheckTool.checkPara(callbackId))
+            return;
+
+        initFog();
+        if(null == mqttu)
+            mqttu = new MQTTUtils(mContext, instanceId);
+        mqttu.stopMqtt(callbackId);
+    }
+
+    /**
+     * Client Subscribe request.
+     *
+     * @param parajson topic qos within 0, 1, 2 json
+     * @param callbackId callback referenece handle
+     */
+    @WXModuleAnno
+    public void subscribe(JSONObject parajson, String callbackId) {
+        if (!CheckTool.checkPara(callbackId))
+            return;
+
+        initFog();
+
+        String topic = null;
+        int qos = parajson.containsKey(PaMap._MQTT_QOS) ? parajson.getInteger(PaMap._MQTT_QOS) : PaMap._MQTT_DEFAULT_QOS;
+
+        if (parajson.containsKey(PaMap._MQTT_TOPIC)) {
+            topic = parajson.getString(PaMap._MQTT_TOPIC);
+        }
+
+        if (CheckTool.checkPara(topic)) {
+            if (null == mqttu)
+                mqttu = new MQTTUtils(mContext, instanceId);
+            mqttu.subscribe(topic, qos, callbackId);
+        } else {
+            exeCallBack(callbackId, PaMap.getEmptyMessage(), false);
+        }
+    }
+
+    /**
+     * Client Unsubscribe request.
+     *
+     * @param parajson topic json
+     * @param callbackId callback referenece handle
+     */
+    @WXModuleAnno
+    public void unsubscribe(JSONObject parajson, String callbackId) {
+        if (!CheckTool.checkPara(callbackId))
+            return;
+
+        initFog();
+
+        String topic = null;
+        if (parajson.containsKey(PaMap._MQTT_TOPIC)) {
+            topic = parajson.getString(PaMap._MQTT_TOPIC);
+        }
+
+        if (CheckTool.checkPara(topic)) {
+            if (null == mqttu)
+                mqttu = new MQTTUtils(mContext, instanceId);
+            mqttu.unsubscribe(topic, callbackId);
+        } else {
+            exeCallBack(callbackId, PaMap.getEmptyMessage(), false);
+        }
+    }
+
+    /**
+     * Publish message.
+     *
+     * @param parajson topic
+     *                 command
+     *                 qos within 0, 1, 2
+     *                 Retained messages do not form part of the Session state in the Server,
+     *                 they MUST NOT be deleted when the Session ends.
+     * @param callbackId callback referenece handle
+     */
+    @WXModuleAnno
+    public void publish(JSONObject parajson, String callbackId) {
+        if (!CheckTool.checkPara(callbackId))
+            return;
+
+        initFog();
+
+        String topic = null, command = null;
+        int qos = parajson.containsKey(PaMap._MQTT_QOS) ? parajson.getInteger(PaMap._MQTT_QOS) : PaMap._MQTT_DEFAULT_QOS;
+        boolean retained = parajson.containsKey(PaMap._MQTT_RETAINED) ? parajson.getBoolean(PaMap._MQTT_RETAINED) : PaMap._MQTT_DEFAULT_RETAINED;
+
+        if (parajson.containsKey(PaMap._MQTT_TOPIC)) {
+            topic = parajson.getString(PaMap._MQTT_TOPIC);
+        }
+        if (parajson.containsKey(PaMap._MQTT_COMMAND)) {
+            command = parajson.getString(PaMap._MQTT_COMMAND);
+        }
+
+        if (CheckTool.checkPara(topic, command)) {
+            if (null == mqttu)
+                mqttu = new MQTTUtils(mContext, instanceId);
+            mqttu.publish(topic, command, qos, retained, callbackId);
+        } else {
             exeCallBack(callbackId, PaMap.getEmptyMessage(), false);
         }
     }

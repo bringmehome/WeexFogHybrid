@@ -32,6 +32,12 @@ public class PaMap {
     public final static String _MQTT_CLIENTID  = "clientid";
     public final static String _MQTT_ISENCRYPT  = "isencrypt";
 
+    public final static String _MQTT_QOS  = "qos";
+    public final static String _MQTT_COMMAND  = "command";
+    public final static String _MQTT_RETAINED  = "retained";
+    public final static int _MQTT_DEFAULT_QOS  = 0;
+    public final static boolean _MQTT_DEFAULT_RETAINED  = false;
+
     //Parameter is null
     public final static int _EMPTY_CODE  = 5001;
     public final static String _EMPTY_MSG  = "invalid param";

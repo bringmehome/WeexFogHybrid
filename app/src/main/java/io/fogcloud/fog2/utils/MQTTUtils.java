@@ -16,6 +16,23 @@ import io.fogcloud.helper.PaMap;
 /**
  * Created by Sin on 2016/08/02.
  * Email:88635653@qq.com
+ *
+ * QOS: description
+ * If a subscribing Client has been granted maximum QoS 1 for a particular Topic Filter,
+ * then a QoS 0 Application Message matching the filter is delivered to the Client at QoS 0.
+ * This means that at most one copy of the message is received by the Client.
+ * On the other hand a QoS 2 Message published to the same topic is downgraded by the Server
+ * to QoS 1 for delivery to the Client, so that Client might receive duplicate copies of the Message.
+ *
+ * If the subscribing Client has been granted maximum QoS 0,
+ * then an Application Message originally published as QoS 2
+ * might get lost on the hop to the Client, but the Server should never send a duplicate of that Message.
+ * A QoS 1 Message published to the same topic might either get lost or duplicated on its transmission to that Client.
+ *
+ * Subscribing to a Topic Filter at QoS 2 is equivalent to saying
+ * "I would like to receive Messages matching this filter at the QoS with which they were published".
+ * This means a publisher is responsible for determining the maximum QoS a Message can be delivered at,
+ * but a subscriber is able to require that the Server downgrades the QoS to one more suitable for its usage.
  */
 public class MQTTUtils {
     private MQTT mqtt = null;
@@ -40,23 +57,124 @@ public class MQTTUtils {
      */
     public void startMqtt(JSONObject parajson, final String callbackId){
         ListenDeviceParams ldp = jsonToParams(parajson);
+        if (null != mqtt && null != ldp) {
+            mqtt.startMqtt(ldp, new ListenDeviceCallBack() {
+                @Override
+                public void onSuccess(int code, String message) {
+                    exeCallBack(callbackId, getResult(code, message), true);
+                }
 
-        mqtt.startMqtt(ldp, new ListenDeviceCallBack() {
-            @Override
-            public void onSuccess(int code, String message) {
-                exeCallBack(callbackId, getResult(code, message), true);
-            }
+                @Override
+                public void onFailure(int code, String message) {
+                    exeCallBack(callbackId, getResult(code, message), false);
+                }
 
-            @Override
-            public void onFailure(int code, String message) {
-                exeCallBack(callbackId, getResult(code, message), false);
-            }
+                @Override
+                public void onDeviceStatusReceived(int code, String messages) {
+                    exeCallBack(callbackId, getResult(code, messages), true);
+                }
+            });
+        }
+    }
 
-            @Override
-            public void onDeviceStatusReceived(int code, String messages) {
-                exeCallBack(callbackId, getResult(code, messages), true);
-            }
-        });
+    /**
+     * Stop listen mqttservice.
+     *
+     * @param callbackId callback referenece handle
+     */
+    public void stopMqtt(final String callbackId){
+
+        if (null != mqtt) {
+            mqtt.stopMqtt(new ListenDeviceCallBack() {
+                @Override
+                public void onSuccess(int code, String message) {
+                    exeCallBack(callbackId, getResult(code, message), false);
+                }
+
+                @Override
+                public void onFailure(int code, String message) {
+                    exeCallBack(callbackId, getResult(code, message), false);
+                }
+            });
+        }
+    }
+
+    /**
+     * Client Subscribe request.
+     *
+     * @param topic topic
+     * @param qos qos within 0, 1, 2
+     * @param callbackId callback referenece handle
+     */
+    public void subscribe(String topic, int qos, final String callbackId) {
+
+        if (null != mqtt) {
+            mqtt.subscribe(topic, qos, new ListenDeviceCallBack() {
+                @Override
+                public void onSuccess(int code, String message) {
+                    exeCallBack(callbackId, getResult(code, message), false);
+                }
+
+                @Override
+                public void onFailure(int code, String message) {
+                    exeCallBack(callbackId, getResult(code, message), false);
+                }
+            });
+        }
+    }
+
+    /**
+     * Client Unsubscribe request.
+     *
+     * @param topic topic
+     * @param callbackId callback referenece handle
+     */
+    public void unsubscribe(String topic, final String callbackId) {
+
+        if (null != mqtt) {
+            mqtt.unsubscribe(topic,new ListenDeviceCallBack() {
+                @Override
+                public void onSuccess(int code, String message) {
+                    exeCallBack(callbackId, getResult(code, message), false);
+                }
+
+                @Override
+                public void onFailure(int code, String message) {
+                    exeCallBack(callbackId, getResult(code, message), false);
+                }
+            });
+        }
+    }
+
+    /**
+     * Publish message.
+     *
+     * @param topic topic
+     * @param command command
+     * @param qos qos within 0, 1, 2
+     * @param retained Retained messages do not form part of the Session state in the Server,
+     *                 they MUST NOT be deleted when the Session ends.
+     * @param callbackId callback referenece handle
+     */
+    public void publish(String topic,
+                        String command,
+                        int qos,
+                        boolean retained,
+                        final String callbackId) {
+
+        if (null != mqtt) {
+            mqtt.publish(topic, command, qos, retained, new ListenDeviceCallBack() {
+                @Override
+                public void onSuccess(int code, String message) {
+                    exeCallBack(callbackId, getResult(code, message), false);
+                }
+
+                @Override
+                public void onFailure(int code, String message) {
+                    exeCallBack(callbackId, getResult(code, message), false);
+                }
+            });
+        }
     }
 
     /**
