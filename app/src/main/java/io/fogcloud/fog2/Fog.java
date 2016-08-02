@@ -1,14 +1,12 @@
 package io.fogcloud.fog2;
 
 import android.content.Context;
-import android.util.Log;
+//import android.util.Log;
 
 import com.alibaba.fastjson.JSONObject;
 import com.taobao.weex.bridge.WXBridgeManager;
 import com.taobao.weex.common.WXModule;
 import com.taobao.weex.common.WXModuleAnno;
-
-import org.json.JSONException;
 
 import java.util.Map;
 
@@ -44,7 +42,7 @@ public class Fog extends WXModule {
 
     @WXModuleAnno
     public void fogTest(JSONObject param, String callbackId){
-        Log.d("---fogTest---", param.toString());
+//        Log.d("---fogTest---", param.toString());
     }
 
     /**
