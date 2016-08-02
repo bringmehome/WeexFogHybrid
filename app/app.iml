@@ -92,7 +92,8 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.taobao.android/weex_sdk/0.6.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/io.fogcloud.sdk/easylink/0.1.1/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/io.fogcloud.sdk/fog_mdns/0.1.1/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/io.fogcloud.sdk/fog_mdns/0.1.2/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/io.fogcloud.sdk/fog_mqtt/0.1.2/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-runtime-classes" />
@@ -113,17 +114,19 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 23 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="recyclerview-v7-23.1.1" level="project" />
     <orderEntry type="library" exported="" name="fastjson-1.1.46.android" level="project" />
-    <orderEntry type="library" exported="" name="support-v4-23.1.1" level="project" />
     <orderEntry type="library" exported="" name="picasso-2.5.2" level="project" />
+    <orderEntry type="library" exported="" name="weex_sdk-0.6.1" level="project" />
+    <orderEntry type="library" exported="" name="design-23.1.1" level="project" />
+    <orderEntry type="library" exported="" name="org.eclipse.paho.client.mqttv3-1.1.0" level="project" />
+    <orderEntry type="library" exported="" name="fog_mqtt-0.1.2" level="project" />
+    <orderEntry type="library" exported="" name="recyclerview-v7-23.1.1" level="project" />
+    <orderEntry type="library" exported="" name="support-v4-23.1.1" level="project" />
     <orderEntry type="library" exported="" name="slf4j-api-1.7.16" level="project" />
     <orderEntry type="library" exported="" name="jmdns-3.5.0" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.1.1" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-23.1.1" level="project" />
     <orderEntry type="library" exported="" name="easylink-0.1.1" level="project" />
-    <orderEntry type="library" exported="" name="weex_sdk-0.6.1" level="project" />
-    <orderEntry type="library" exported="" name="fog_mdns-0.1.1" level="project" />
-    <orderEntry type="library" exported="" name="design-23.1.1" level="project" />
+    <orderEntry type="library" exported="" name="fog_mdns-0.1.2" level="project" />
   </component>
 </module>

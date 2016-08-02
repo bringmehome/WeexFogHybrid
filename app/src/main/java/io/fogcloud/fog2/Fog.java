@@ -14,6 +14,7 @@ import java.util.Map;
 
 import io.fogcloud.fog2.utils.EasyLinkUtils;
 import io.fogcloud.fog2.utils.MDNSUtils;
+import io.fogcloud.fog2.utils.MQTTUtils;
 import io.fogcloud.helper.CheckTool;
 import io.fogcloud.helper.PaMap;
 
@@ -27,6 +28,7 @@ public class Fog extends WXModule {
 
     private EasyLinkUtils elu = null;
     private MDNSUtils mdnsu = null;
+    private MQTTUtils mqttu = null;
 
     /**
      * Initialize wxmodule of fog
@@ -43,8 +45,6 @@ public class Fog extends WXModule {
     @WXModuleAnno
     public void fogTest(JSONObject param, String callbackId){
         Log.d("---fogTest---", param.toString());
-
-
     }
 
     /**
@@ -138,6 +138,23 @@ public class Fog extends WXModule {
         if(null == mdnsu)
             mdnsu = new MDNSUtils(mContext, instanceId);
         mdnsu.stopSearchDevices(callbackId);
+    }
+
+    @WXModuleAnno
+    public void startMqtt(JSONObject parajson, String callbackId){
+
+        if (!CheckTool.checkPara(callbackId))
+            return;
+
+        initFog();
+
+        if(!parajson.isEmpty()){
+            if(null == elu)
+                mqttu = new MQTTUtils(mContext, instanceId);
+            mqttu.startMqtt(parajson, callbackId);
+        }else{
+            exeCallBack(callbackId, PaMap.getEmptyMessage(), false);
+        }
     }
 
     /**

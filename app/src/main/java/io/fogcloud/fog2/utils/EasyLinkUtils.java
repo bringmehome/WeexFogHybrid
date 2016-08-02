@@ -91,7 +91,7 @@ public class EasyLinkUtils {
     }
 
     /**
-     * Creates a new EasyLinkParams with name/value mappings from the JSON string.
+     * Creates a new EasyLinkParams with name/value mappings from the JSON.
      *
      * @param json JSON string
      * @return EasyLinkParams
@@ -112,7 +112,7 @@ public class EasyLinkUtils {
         if (json.containsKey(PaMap._EL_RC4))
             easylinkPara.rc4key = json.getString(PaMap._EL_RC4);
 
-            return easylinkPara;
+        return easylinkPara;
     }
 
     /**

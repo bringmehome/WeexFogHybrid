@@ -56,8 +56,8 @@ public class MDNSUtils {
                 }
 
                 @Override
-                public void onDevicesFind(JSONArray deviceStatus) {
-                    WXBridgeManager.getInstance().callback(instanceId, callbackId, getResult(deviceStatus.toString(), PaMap._MDNS_ON_DEV_FIND), true);
+                public void onDevicesFind(int code, JSONArray deviceStatus) {
+                    WXBridgeManager.getInstance().callback(instanceId, callbackId, getResult(deviceStatus.toString(), code), true);
                 }
             });
         }

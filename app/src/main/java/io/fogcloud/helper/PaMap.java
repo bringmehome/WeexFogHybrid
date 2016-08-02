@@ -21,7 +21,16 @@ public class PaMap {
     public final static int _EL_SUCCESS  = 0;
 
     //The following are mDNSParams
-    public final static int _MDNS_ON_DEV_FIND  = 200;
+//    public final static int _MDNS_ON_DEV_FIND  = 200;
+
+    //The following are mDNSParams
+    public final static String _MQTT_HOST  = "host";
+    public final static String _MQTT_PORT  = "port";
+    public final static String _MQTT_USERNAME  = "username";
+    public final static String _MQTT_PSW  = "password";
+    public final static String _MQTT_TOPIC  = "topic";
+    public final static String _MQTT_CLIENTID  = "clientid";
+    public final static String _MQTT_ISENCRYPT  = "isencrypt";
 
     //Parameter is null
     public final static int _EMPTY_CODE  = 5001;
